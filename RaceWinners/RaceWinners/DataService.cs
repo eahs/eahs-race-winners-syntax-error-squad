@@ -20,7 +20,6 @@ public class DataService
             Ranks = new List<int> {4, 9, 11, 12, 20, 21, 25, 26, 29, 35, 43, 45, 49, 54, 61, 65 ,69, 70, 71}  // etc
         });
 
-
         groups.Add(new Group
         {
             Name = "Class B",
