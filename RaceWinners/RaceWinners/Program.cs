@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.Common;
 using System.Dynamic;
 using System.Threading.Tasks;
 
@@ -22,7 +23,7 @@ public class Program
         }
 
 
-            string winner1 = "";
+            string winner1 = String.Empty;
             double highest = int.MaxValue;
         //Mean Value Algorithm
         foreach(var classes in data)
@@ -50,7 +51,7 @@ public class Program
 
 
         //Compare each rank Algorithm
-        string winner2 = "";
+        string winner2 = String.Empty;
         int leader = 0;
         int highestPoints = 0;
        
@@ -91,7 +92,57 @@ public class Program
         Console.WriteLine(winner2 + " is the winner based on comparing each class rank");
 
 
+        //Quadratic Mean Algorithm
+            double lowAverage = int.MaxValue;
+            string winner3 = string.Empty;
+
+        foreach (var classes in data)
+        {
+            double average = 0;
+
+            foreach (var ranks in classes.Ranks)
+            {
+                average += ranks * ranks;
+            }
+
+            average = Math.Sqrt((1.0 / classes.Ranks.Count) * average);
 
 
+            if (average < lowAverage)
+            {
+                lowAverage = average;
+                winner3 = classes.Name;
+            }
+            //Console.WriteLine(classes.Name + " " + average);
+        }
+
+        Console.WriteLine(winner3 + " is the winner based on the Quadratic Mean Algorithm");
+
+
+        //Geometric Mean Algorithm
+        double lowAverageGeometric = int.MaxValue;
+        string winner4 = String.Empty;
+
+        foreach (var classes in data)
+        {
+            double geometricAverage = 1;
+
+            foreach (var ranks in classes.Ranks)
+            {
+                geometricAverage *= ranks;
+            }
+
+            geometricAverage = Math.Pow(geometricAverage, 1.0 / classes.Ranks.Count);
+
+            if (geometricAverage < lowAverageGeometric)
+            {
+                lowAverageGeometric = geometricAverage;
+                winner4 = classes.Name;
+            }
+            //Console.WriteLine(classes.Name + " " + geometricAverage);
+        }
+
+
+        Console.WriteLine(winner4 + " is the winner based on the Geometric Average");
     }
 }
