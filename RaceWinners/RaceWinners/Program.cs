@@ -12,7 +12,7 @@ public class Program
     static async Task Main(string[] args)
     {
         // Asynchronously retrieve the group (class) data
-        DataService ds = new DataService();
+        var ds = new DataService();
         var data = await ds.GetGroupRanksAsync();
 
 
@@ -24,16 +24,16 @@ public class Program
         //    //Console.WriteLine($"{data[i].Name} - [{ranks}]");
         //}
 
-        meanValueAlg(data);
-        rankComparisonAlg(data);
-        quadraticMeanAlg(data);
-        geometricMeanAlg(data);
+        MeanValueAlg(data);
+        RankComparisonAlg(data);
+        QuadraticMeanAlg(data);
+        GeometricMeanAlg(data);
     }
 
 
-    public static void meanValueAlg(List<Models.Group> data)
+    public static void MeanValueAlg(List<Models.Group> data)
     {
-        string winner1 = string.Empty;
+        var winner1 = string.Empty;
         double highest = int.MaxValue;
         //Mean Value Algorithm
         foreach (var classes in data)
@@ -60,19 +60,19 @@ public class Program
         Console.WriteLine(winner1 + " is the winner based on mean value of all runners!!");
     }
 
-    public static void rankComparisonAlg(List<Models.Group> data)
+    public static void RankComparisonAlg(List<Models.Group> data)
     {
         //Compare each rank Algorithm
-        string winner2 = string.Empty;
-        int leader = 0;
-        int highestPoints = 0;
+        var winner2 = string.Empty;
+        var leader = 0;
+        var highestPoints = 0;
 
 
-        for (int i = 0; i < 20; i++) //All class ranks
+        for (var i = 0; i < 20; i++) //All class ranks
         {
-            int lowestRank = int.MaxValue;
+            var lowestRank = int.MaxValue;
 
-            for (int k = 0; k < data.Count; k++) //checks all classes
+            for (var k = 0; k < data.Count; k++) //checks all classes
             {
                 if (i >= data[k].Ranks.Count)
                 {
@@ -88,7 +88,7 @@ public class Program
             data[leader].Points++;
         }
 
-        for (int i = 0; i < data.Count; i++)
+        for(var i = 0; i < data.Count; i++)
         {
             if (highestPoints < data[i].Points)
             {
@@ -105,11 +105,11 @@ public class Program
         Console.WriteLine(winner2 + " is the winner based on comparing each class rank");
     }
 
-    public static void quadraticMeanAlg(List<Models.Group> data)
+    public static void QuadraticMeanAlg(List<Models.Group> data)
     {
         //Quadratic Mean Algorithm
-        double lowAverage = int.MaxValue;
-        string winner3 = string.Empty;
+        var lowAverage = double.MaxValue;
+        var winner3 = string.Empty;
 
         foreach (var classes in data)
         {
@@ -134,11 +134,11 @@ public class Program
         Console.WriteLine(winner3 + " is the winner based on the Quadratic Mean Algorithm");
     }
 
-    public static void geometricMeanAlg(List<Models.Group> data)
+    public static void GeometricMeanAlg(List<Models.Group> data)
     {
         //Geometric Mean Algorithm
-        double lowAverageGeometric = int.MaxValue;
-        string winner4 = string.Empty;
+        double lowAverageGeometric = double.MaxValue;
+        var winner4 = string.Empty;
 
         foreach (var classes in data)
         {
