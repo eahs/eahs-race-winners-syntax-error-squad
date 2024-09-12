@@ -28,13 +28,14 @@ public class Program
         RankComparisonAlg(data);
         QuadraticMeanAlg(data);
         GeometricMeanAlg(data);
+        HarmonicMeanAlg(data);
     }
 
 
     public static void MeanValueAlg(List<Models.Group> data)
     {
         var winner1 = string.Empty;
-        double highest = int.MaxValue;
+        double lowest = int.MaxValue;
         //Mean Value Algorithm
         foreach (var classes in data)
         {
@@ -49,15 +50,15 @@ public class Program
 
             meanScore = totalScore / classes.Ranks.Count;
 
-            if (meanScore < highest)
+            if (meanScore < lowest)
             {
-                highest = meanScore;
+                lowest = meanScore;
                 winner1 = classes.Name;
             }
 
             //Console.WriteLine(classes.Name + " " + meanScore);
         }
-        Console.WriteLine(winner1 + " is the winner based on mean value of all runners!!");
+        Console.WriteLine(winner1 + " is the winner based on mean value of all runners with an average of " + lowest);
     }
 
     public static void RankComparisonAlg(List<Models.Group> data)
@@ -102,14 +103,14 @@ public class Program
         //Console.WriteLine(data[3].Points);
 
 
-        Console.WriteLine(winner2 + " is the winner based on comparing each class rank");
+        Console.WriteLine(winner2 + " is the winner based on comparing each class rank with " + highestPoints + " points");
     }
 
     public static void QuadraticMeanAlg(List<Models.Group> data)
     {
         //Quadratic Mean Algorithm
         var lowAverage = double.MaxValue;
-        var winner3 = string.Empty;
+        var winner = string.Empty;
 
         foreach (var classes in data)
         {
@@ -126,40 +127,67 @@ public class Program
             if (average < lowAverage)
             {
                 lowAverage = average;
-                winner3 = classes.Name;
+                winner = classes.Name;
             }
             //Console.WriteLine(classes.Name + " " + average);
         }
 
-        Console.WriteLine(winner3 + " is the winner based on the Quadratic Mean Algorithm");
+        Console.WriteLine(winner + " is the winner based on the Quadratic Mean Algorithm with an average of " + lowAverage);
     }
 
     public static void GeometricMeanAlg(List<Models.Group> data)
     {
         //Geometric Mean Algorithm
-        double lowAverageGeometric = double.MaxValue;
-        var winner4 = string.Empty;
+        double lowAverage = double.MaxValue;
+        var winner = string.Empty;
 
         foreach (var classes in data)
         {
-            double geometricAverage = 1;
+            double average = 1;
 
             foreach (var ranks in classes.Ranks)
             {
-                geometricAverage *= ranks;
+                average *= ranks;
             }
 
-            geometricAverage = Math.Pow(geometricAverage, 1.0 / classes.Ranks.Count);
+            average = Math.Pow(average, 1.0 / classes.Ranks.Count);
 
-            if (geometricAverage < lowAverageGeometric)
+            if (average < lowAverage)
             {
-                lowAverageGeometric = geometricAverage;
-                winner4 = classes.Name;
+                lowAverage = average;
+                winner = classes.Name;
             }
             //Console.WriteLine(classes.Name + " " + geometricAverage);
         }
 
 
-        Console.WriteLine(winner4 + " is the winner based on the Geometric Average");
+        Console.WriteLine(winner + " is the winner based on the Geometric Average with an average of " + lowAverage);
+    }
+
+    public static void HarmonicMeanAlg(List<Models.Group> data)
+    {
+        var lowAverage = double.MaxValue;
+        var winner = string.Empty;
+
+        foreach (var classes in data)
+        {
+            var average = 0.0;
+
+            foreach (var ranks in classes.Ranks)
+            {
+                average += (1.0 / ranks);
+            }
+
+            average = classes.Ranks.Count / average;
+
+            if (average < lowAverage)
+            {
+                lowAverage = average;
+                winner = classes.Name;
+            }
+        }
+
+        Console.WriteLine(winner + " is the winner based on the Harmonic Mean with an average of " + lowAverage);
+
     }
 }
