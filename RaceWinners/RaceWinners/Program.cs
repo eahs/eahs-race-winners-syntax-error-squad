@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Common;
 using System.Dynamic;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace RaceWinners;
 
@@ -9,28 +11,36 @@ public class Program
 {
     static async Task Main(string[] args)
     {
-        DataService ds = new DataService();
-
         // Asynchronously retrieve the group (class) data
+        DataService ds = new DataService();
         var data = await ds.GetGroupRanksAsync();
 
-        for (int i = 0; i < data.Count; i++)
-        {
-            // Combine the ranks to print as a list
-            var ranks = String.Join(", ", data[i].Ranks);
+
+        //for (int i = 0; i < data.Count; i++)
+        //{
+        //    // Combine the ranks to print as a list
+        //    var ranks = string.Join(", ", data[i].Ranks);
             
-            //Console.WriteLine($"{data[i].Name} - [{ranks}]");
-        }
+        //    //Console.WriteLine($"{data[i].Name} - [{ranks}]");
+        //}
+
+        meanValueAlg(data);
+        rankComparisonAlg(data);
+        quadraticMeanAlg(data);
+        geometricMeanAlg(data);
+    }
 
 
-            string winner1 = String.Empty;
-            double highest = int.MaxValue;
+    public static void meanValueAlg(List<Models.Group> data)
+    {
+        string winner1 = string.Empty;
+        double highest = int.MaxValue;
         //Mean Value Algorithm
-        foreach(var classes in data)
+        foreach (var classes in data)
         {
             double meanScore = 0;
             double totalScore = 0;
-             
+
 
             foreach (var rank in classes.Ranks)
             {
@@ -39,7 +49,7 @@ public class Program
 
             meanScore = totalScore / classes.Ranks.Count;
 
-            if(meanScore < highest)
+            if (meanScore < highest)
             {
                 highest = meanScore;
                 winner1 = classes.Name;
@@ -48,24 +58,27 @@ public class Program
             //Console.WriteLine(classes.Name + " " + meanScore);
         }
         Console.WriteLine(winner1 + " is the winner based on mean value of all runners!!");
+    }
 
-
+    public static void rankComparisonAlg(List<Models.Group> data)
+    {
         //Compare each rank Algorithm
-        string winner2 = String.Empty;
+        string winner2 = string.Empty;
         int leader = 0;
         int highestPoints = 0;
-       
-        
+
+
         for (int i = 0; i < 20; i++) //All class ranks
         {
             int lowestRank = int.MaxValue;
 
-            for (int k = 0; k<data.Count;k++) //checks all classes
+            for (int k = 0; k < data.Count; k++) //checks all classes
             {
                 if (i >= data[k].Ranks.Count)
                 {
                     continue;
-                } else if (data[k].Ranks[i] < lowestRank) //if the rank of class[k] at rank[i] < lowestRank so far
+                }
+                else if (data[k].Ranks[i] < lowestRank) //if the rank of class[k] at rank[i] < lowestRank so far
                 {
                     lowestRank = data[k].Ranks[i];
                     leader = k;
@@ -90,11 +103,13 @@ public class Program
 
 
         Console.WriteLine(winner2 + " is the winner based on comparing each class rank");
+    }
 
-
+    public static void quadraticMeanAlg(List<Models.Group> data)
+    {
         //Quadratic Mean Algorithm
-            double lowAverage = int.MaxValue;
-            string winner3 = string.Empty;
+        double lowAverage = int.MaxValue;
+        string winner3 = string.Empty;
 
         foreach (var classes in data)
         {
@@ -117,11 +132,13 @@ public class Program
         }
 
         Console.WriteLine(winner3 + " is the winner based on the Quadratic Mean Algorithm");
+    }
 
-
+    public static void geometricMeanAlg(List<Models.Group> data)
+    {
         //Geometric Mean Algorithm
         double lowAverageGeometric = int.MaxValue;
-        string winner4 = String.Empty;
+        string winner4 = string.Empty;
 
         foreach (var classes in data)
         {
