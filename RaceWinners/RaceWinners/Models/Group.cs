@@ -16,4 +16,7 @@ public class Group
     /// group placed 4th overall.  
     /// </summary>
     public List<int> Ranks { get; set; }
+
+
+    public int Points { get; set; }
 }
