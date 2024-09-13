@@ -16,6 +16,8 @@ public class Program
         var data = await ds.GetGroupRanksAsync();
 
 
+
+
         //for (int i = 0; i < data.Count; i++)
         //{
         //    // Combine the ranks to print as a list
@@ -24,15 +26,19 @@ public class Program
         //    //Console.WriteLine($"{data[i].Name} - [{ranks}]");
         //}
 
-        MeanValueAlg(data);
-        RankComparisonAlg(data);
-        QuadraticMeanAlg(data);
-        GeometricMeanAlg(data);
-        HarmonicMeanAlg(data);
+        var w1 = MeanValueAlg(data);
+        var w2 = RankComparisonAlg(data);
+        var w3 = QuadraticMeanAlg(data);
+        var w4 = GeometricMeanAlg(data);
+        var w5 = HarmonicMeanAlg(data);
+
+        GetScore(w1, w2, w3, w4, w5, data);
+
+
     }
 
 
-    public static void MeanValueAlg(List<Models.Group> data)
+    public static string MeanValueAlg(List<Models.Group> data)
     {
         var winner1 = string.Empty;
         double lowest = int.MaxValue;
@@ -59,9 +65,11 @@ public class Program
             //Console.WriteLine(classes.Name + " " + meanScore);
         }
         Console.WriteLine(winner1 + " is the winner based on mean value of all runners with an average of " + Math.Round(lowest, 3));
+
+        return winner1;
     }
 
-    public static void RankComparisonAlg(List<Models.Group> data)
+    public static string RankComparisonAlg(List<Models.Group> data)
     {
         //Compare each rank Algorithm
         var winner2 = string.Empty;
@@ -104,9 +112,10 @@ public class Program
 
 
         Console.WriteLine(winner2 + " is the winner based on comparing each class rank with " + highestPoints + " points");
+        return winner2;
     }
 
-    public static void QuadraticMeanAlg(List<Models.Group> data)
+    public static string QuadraticMeanAlg(List<Models.Group> data)
     {
         //Quadratic Mean Algorithm
         var lowAverage = double.MaxValue;
@@ -133,9 +142,10 @@ public class Program
         }
 
         Console.WriteLine(winner + " is the winner based on the Quadratic Mean Algorithm with an average of " + Math.Round(lowAverage, 3));
+        return winner;
     }
 
-    public static void GeometricMeanAlg(List<Models.Group> data)
+    public static string GeometricMeanAlg(List<Models.Group> data)
     {
         //Geometric Mean Algorithm
         double lowAverage = double.MaxValue;
@@ -162,9 +172,10 @@ public class Program
 
 
         Console.WriteLine(winner + " is the winner based on the Geometric Average with an average of " + Math.Round(lowAverage, 3));
+        return winner;
     }
 
-    public static void HarmonicMeanAlg(List<Models.Group> data)
+    public static string HarmonicMeanAlg(List<Models.Group> data)
     {
         var lowAverage = double.MaxValue;
         var winner = string.Empty;
@@ -188,6 +199,47 @@ public class Program
         }
 
         Console.WriteLine(winner + " is the winner based on the Harmonic Mean with an average of " + Math.Round(lowAverage, 3));
+        return winner;
+    }
 
+    public static void GetScore(string w1, string w2, string w3, string w4, string w5, List<Models.Group> data)
+    {
+        foreach (var classes in data)
+        {
+            if (w1.Equals(classes.Name))
+            {
+                classes.Score++;
+            }
+            if (w2.Equals(classes.Name))
+            {
+                classes.Score++;
+            }
+            if (w3.Equals(classes.Name))
+            {
+                classes.Score++;
+            }
+            if (w4.Equals(classes.Name))
+            {
+                classes.Score++;
+            }
+            if (w5.Equals(classes.Name))
+            {
+                classes.Score++;
+            }
+            Console.WriteLine(classes.Name + " got a score of " + classes.Score + "!");
+        }
+
+        var highest = 0;
+        var winner = "";
+
+        foreach (var classes in data)
+        {
+            if (highest < classes.Score)
+            {
+                highest = classes.Score;
+                winner = classes.Name;
+            }
+        }
+        Console.WriteLine(winner + " Wins!");
     }
 }

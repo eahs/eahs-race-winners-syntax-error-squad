@@ -19,4 +19,5 @@ public class Group
 
 
     public int Points { get; set; }
+    public int Score { get; set; }
 }
