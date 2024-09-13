@@ -58,7 +58,7 @@ public class Program
 
             //Console.WriteLine(classes.Name + " " + meanScore);
         }
-        Console.WriteLine(winner1 + " is the winner based on mean value of all runners with an average of " + lowest);
+        Console.WriteLine(winner1 + " is the winner based on mean value of all runners with an average of " + Math.Round(lowest, 3));
     }
 
     public static void RankComparisonAlg(List<Models.Group> data)
@@ -132,7 +132,7 @@ public class Program
             //Console.WriteLine(classes.Name + " " + average);
         }
 
-        Console.WriteLine(winner + " is the winner based on the Quadratic Mean Algorithm with an average of " + lowAverage);
+        Console.WriteLine(winner + " is the winner based on the Quadratic Mean Algorithm with an average of " + Math.Round(lowAverage, 3));
     }
 
     public static void GeometricMeanAlg(List<Models.Group> data)
@@ -161,7 +161,7 @@ public class Program
         }
 
 
-        Console.WriteLine(winner + " is the winner based on the Geometric Average with an average of " + lowAverage);
+        Console.WriteLine(winner + " is the winner based on the Geometric Average with an average of " + Math.Round(lowAverage, 3));
     }
 
     public static void HarmonicMeanAlg(List<Models.Group> data)
@@ -187,7 +187,7 @@ public class Program
             }
         }
 
-        Console.WriteLine(winner + " is the winner based on the Harmonic Mean with an average of " + lowAverage);
+        Console.WriteLine(winner + " is the winner based on the Harmonic Mean with an average of " + Math.Round(lowAverage, 3));
 
     }
 }
