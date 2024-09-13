@@ -204,28 +204,22 @@ public class Program
 
     public static void GetScore(string w1, string w2, string w3, string w4, string w5, List<Models.Group> data)
     {
+        var algList = new List<string> { w1, w2, w3, w4, w5 };
+
+
+        foreach (var algs in algList)
+        {
+
+            foreach (var classes in data)
+            {
+                if (algs.Equals(classes.Name))
+                {
+                    classes.Score++;
+                }
+            }
+        }
         foreach (var classes in data)
         {
-            if (w1.Equals(classes.Name))
-            {
-                classes.Score++;
-            }
-            if (w2.Equals(classes.Name))
-            {
-                classes.Score++;
-            }
-            if (w3.Equals(classes.Name))
-            {
-                classes.Score++;
-            }
-            if (w4.Equals(classes.Name))
-            {
-                classes.Score++;
-            }
-            if (w5.Equals(classes.Name))
-            {
-                classes.Score++;
-            }
             Console.WriteLine(classes.Name + " got a score of " + classes.Score + "!");
         }
 
